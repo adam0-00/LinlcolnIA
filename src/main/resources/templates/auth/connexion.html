@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Connexion – Lincoln</title>
+</head>
+<body>
+<section class="mx-auto" style="max-width: 400px;">
+    <h1 class="mb-1">Connexion</h1>
+    <p class="text-muted mb-4">Content de te revoir. Entre tes identifiants.</p>
+
+    <form>
+        <div class="mb-3">
+            <label for="email" class="form-label fw-semibold">Adresse e-mail</label>
+            <input type="email" class="form-control form-control-lg" id="email" placeholder="prenom.nom@exemple.fr">
+        </div>
+        <div class="mb-4">
+            <label for="mdp" class="form-label fw-semibold">Mot de passe</label>
+            <input type="password" class="form-control form-control-lg" id="mdp" placeholder="••••••••">
+        </div>
+        <!-- Pas encore fonctionnel (Sprint 2) -->
+        <button type="button" class="btn btn-lincoln w-100">Se connecter</button>
+    </form>
+
+    <p class="small text-muted text-center mt-4 pt-3 border-top">
+        Pas de compte ? Seules les personnes invitées par un administrateur peuvent s'inscrire.
+    </p>
+</section>
+</body>
+</html>

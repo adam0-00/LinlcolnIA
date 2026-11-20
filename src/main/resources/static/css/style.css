@@ -1,0 +1,27 @@
+:root {
+    --lincoln-violet: #4B2E99;
+    --lincoln-jaune: #FFC93C;
+    --lincoln-fond: #FAFAF7;
+    --lincoln-texte: #1E1B2E;
+}
+
+body {
+    background: var(--lincoln-fond);
+    color: var(--lincoln-texte);
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+h1, h2, h3, .navbar-brand {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+}
+
+.btn-lincoln {
+    background: var(--lincoln-violet);
+    color: #fff;
+    border: 0;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-weight: 600;
+}
+.btn-lincoln:hover { background: #3b2378; color: #fff; }

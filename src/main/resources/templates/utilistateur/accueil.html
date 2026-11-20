@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Accueil – Lincoln</title>
+</head>
+<body>
+<section class="text-center py-5">
+    <img th:src="@{/img/Lincoln_icone.png}" alt="" height="120" class="mb-4">
+    <h1 class="display-4">Ton assistant IA préféré  OOOHHHH YEAHHH</h1>
+    <p class="lead text-muted mb-4">Choisis un modèle, pose ta question et retrouve tes conversations.</p>
+    <a class="btn btn-lincoln btn-lg" th:href="@{/connexion}">Se connecter</a>
+</section>
+</body>
+</html>
