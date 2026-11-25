@@ -16,5 +16,13 @@ class Conversation(
     var dateCreation: LocalDateTime,
     var dateDerniereModification: LocalDateTime = LocalDateTime.now(),
 
+
+    @ManyToOne
+    @JoinColumn(name = "modele_ia_id", nullable = false)
+    var modeleIA: ModeleIA,
+
+    @OneToMany(mappedBy = "conversation", cascade = [CascadeType.ALL], orphanRemoval = true)
+    var messages: MutableList<Message> = mutableListOf()
+
 )
 

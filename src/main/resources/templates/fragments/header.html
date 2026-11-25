@@ -10,8 +10,30 @@
       <div class="ms-auto">
         <a class="btn btn-lincoln" th:href="@{/connexion}">Connexion</a>
       </div>
+      <button class="btn btn-outline-secondary me-2" type="button"
+              th:if="${conversations != null}"
+              data-bs-toggle="offcanvas" data-bs-target="#historique">
+        Historique
+      </button>
     </div>
   </nav>
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="historique"
+       th:if="${conversations != null}">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title">Historique</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fermer"></button>
+    </div>
+    <div class="offcanvas-body">
+      <a th:href="@{/}" class="btn btn-lincoln w-100 mb-3">+ Nouvelle conversation</a>
+      <div class="list-group">
+        <a th:each="c : ${conversations}"
+           th:href="@{/conversations/{id}(id=${c.id})}"
+           th:text="${c.titre}"
+           class="list-group-item list-group-item-action"
+           th:classappend="${conversation != null and conversation.id == c.id} ? 'active'"></a>
+      </div>
+    </div>
+  </div>
 </header>
 </body>
 </html>

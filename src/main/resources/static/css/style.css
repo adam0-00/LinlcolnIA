@@ -25,3 +25,16 @@ h1, h2, h3, .navbar-brand {
     font-weight: 600;
 }
 .btn-lincoln:hover { background: #3b2378; color: #fff; }
+
+.message-content { white-space: pre-wrap; }
+.model-select-wrapper, .model-current { min-width: 240px; }
+.message-utilisateur { text-align: right; }
+.message-utilisateur .message-content {
+    display: inline-block;
+    background: var(--lincoln-violet);
+    color: #fff;
+    padding: 12px 16px;
+    border-radius: 18px 18px 4px 18px;
+    max-width: 80%;
+    text-align: left;
+}

@@ -16,5 +16,9 @@ class Message(
     var dateCreation: LocalDateTime,
 
     @Enumerated(EnumType.STRING)
-    var typeMessage: TypeMessage
+    var typeMessage: TypeMessage,
+
+    @ManyToOne
+    @JoinColumn(name = "conversation_id", nullable = false)
+    var conversation: Conversation
 )

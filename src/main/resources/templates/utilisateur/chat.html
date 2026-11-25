@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Chat – Lincoln</title>
+</head>
+<body>
+<section class="chat-page">
+
+    <!-- Aucune conversation sélectionnée -->
+    <div th:if="${conversation == null}" class="text-center my-5">
+        <img th:src="@{/img/Lincoln_icone.png}" alt="" height="96" class="mb-3">
+        <h1 class="h2">Comment puis-je vous aider ?</h1>
+        <p class="text-muted">Choisissez un modèle IA et posez votre question.</p>
+    </div>
+
+    <!-- Historique des messages -->
+    <div th:each="message : ${messages}" class="mb-4"
+         th:classappend="${message.typeMessage.name() == 'UTILISATEUR'} ? 'message-utilisateur' : 'message-assistant'">
+        <strong th:text="${message.typeMessage.name() == 'UTILISATEUR'} ? 'Vous' : 'Lincoln'"></strong>
+        <div class="message message-content mt-2"
+             th:classappend="${message.typeMessage.name() == 'ASSISTANT'} ? 'markdown'"
+             th:text="${message.contenu}">
+
+        </div>
+    </div>
+
+    <!-- Zone de saisie -->
+    <div class="border-top pt-3 mt-4">
+
+        <!-- Création d'une conversation -->
+        <form th:if="${conversation == null}" th:action="@{/conversations}" method="post">
+            <div class="d-flex flex-column flex-md-row align-items-stretch align-items-md-end gap-2">
+                <div class="model-select-wrapper">
+                    <select name="idModele" class="form-select model-select" aria-label="Modèle IA" required>
+                        <option value="" disabled selected>Choisir un modèle IA</option>
+                        <option th:each="modele : ${modeles}" th:value="${modele.id}" th:text="${modele.nom}"></option>
+                    </select>
+                </div>
+                <div class="flex-grow-1">
+          <textarea name="prompt" class="form-control" rows="2"
+                    aria-label="Votre question" placeholder="Posez votre question..." required></textarea>
+                </div>
+                <button class="btn btn-lincoln" type="submit">Envoyer</button>
+            </div>
+        </form>
+
+        <!-- Conversation existante -->
+        <form th:if="${conversation != null}"
+              th:action="@{/conversations/{id}/messages(id=${conversation.id})}" method="post">
+            <div class="d-flex flex-column flex-md-row align-items-stretch align-items-md-end gap-2">
+                <div class="model-current d-flex align-items-center gap-2">
+                    <img th:src="@{${conversation.modeleIA.cheminLogo}}" alt="" width="28" height="28">
+                    <span th:text="${conversation.modeleIA.nom}"></span>
+                </div>
+                <div class="flex-grow-1">
+          <textarea name="prompt" class="form-control" rows="2"
+                    aria-label="Votre message" placeholder="Écrivez votre message..." required></textarea>
+                </div>
+                <button class="btn btn-lincoln" type="submit">Envoyer</button>
+            </div>
+        </form>
+
+    </div>
+    <script th:src="@{/vendor/js/marked.min.js}"></script>
+    <script th:src="@{/vendor/js/purify.min.js}"></script>
+    <script>
+        document.querySelectorAll('.markdown').forEach(function (el) {
+            const html = marked.parse(el.textContent);
+            el.innerHTML = DOMPurify.sanitize(html);
+            el.style.whiteSpace = 'normal';
+        });
+    </script>
+</section>
+</body>
+</html>
