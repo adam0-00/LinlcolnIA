@@ -4,3 +4,7 @@ import org.ldv.lincoln.model.entity.Conversation
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface Conversasion : JpaRepository<Conversation, Long>
+
+interface ConversationDAO : JpaRepository<Conversation, Long> {
+    fun findAllByOrderByDateDerniereModificationDesc(): List<Conversation>
+}

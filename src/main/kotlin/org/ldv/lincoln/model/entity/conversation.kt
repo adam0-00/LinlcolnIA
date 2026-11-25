@@ -13,5 +13,8 @@ class Conversation(
     var id: Long? = null,
 
     var titre: String,
-    var dateCreation: LocalDateTime
+    var dateCreation: LocalDateTime,
+    var dateDerniereModification: LocalDateTime = LocalDateTime.now(),
+
 )
+
