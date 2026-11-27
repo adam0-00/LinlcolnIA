@@ -38,3 +38,8 @@ h1, h2, h3, .navbar-brand {
     max-width: 80%;
     text-align: left;
 }
+
+.list-group-item.active {
+    background-color: var(--lincoln-violet);
+    border-color: var(--lincoln-violet);
+}

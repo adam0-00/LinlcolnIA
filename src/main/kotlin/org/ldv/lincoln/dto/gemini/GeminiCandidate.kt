@@ -1,4 +1,3 @@
 package org.ldv.lincoln.dto.gemini
 
-class GeminiCandidate {
-}
+data class GeminiCandidate(val content: GeminiContent?)

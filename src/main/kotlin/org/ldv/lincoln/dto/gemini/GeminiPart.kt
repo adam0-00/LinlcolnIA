@@ -1,4 +1,3 @@
 package org.ldv.lincoln.dto.gemini
 
-class GeminiPart {
-}
+data class GeminiPart(val text: String)

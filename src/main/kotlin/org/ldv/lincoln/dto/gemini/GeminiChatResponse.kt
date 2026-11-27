@@ -1,4 +1,3 @@
 package org.ldv.lincoln.dto.gemini
 
-class GeminiChatResponse {
-}
+data class GeminiChatResponse(val candidates: List<GeminiCandidate>?)
