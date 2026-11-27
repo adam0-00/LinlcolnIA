@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 <header th:fragment="header">
   <nav class="navbar navbar-expand-lg bg-white border-bottom">
@@ -8,7 +9,15 @@
         <img th:src="@{/img/Lincoln_logo.png}" alt="Lincoln" height="40">
       </a>
       <div class="ms-auto">
-        <a class="btn btn-lincoln" th:href="@{/connexion}">Connexion</a>
+        <!-- Visiteur non connecté -->
+        <a sec:authorize="!isAuthenticated()"
+           class="btn btn-lincoln" th:href="@{/login}">Connexion</a>
+
+        <!-- Utilisateur connecté -->
+        <form sec:authorize="isAuthenticated()"
+              th:action="@{/logout}" method="post" class="d-inline">
+          <button type="submit" class="btn btn-outline-danger">Déconnexion</button>
+        </form>
       </div>
       <button class="btn btn-outline-secondary me-2" type="button"
               th:if="${conversations != null}"

@@ -9,17 +9,28 @@
     <h1 class="mb-1">Connexion</h1>
     <p class="text-muted mb-4">Content de te revoir. Entre tes identifiants.</p>
 
-    <form>
+    <div th:if="${param.error}" class="alert alert-danger" role="alert">
+        Adresse e-mail ou mot de passe incorrect, ou compte désactivé.
+    </div>
+
+    <div th:if="${param.logout}" class="alert alert-success" role="status">
+        Vous avez été déconnecté avec succès.
+    </div>
+
+    <form th:action="@{/login}" method="post">
         <div class="mb-3">
             <label for="email" class="form-label fw-semibold">Adresse e-mail</label>
-            <input type="email" class="form-control form-control-lg" id="email" placeholder="prenom.nom@exemple.fr">
+            <input type="email" class="form-control form-control-lg" id="email"
+                   name="email" placeholder="prenom.nom@exemple.fr"
+                   autocomplete="username" required autofocus>
         </div>
         <div class="mb-4">
             <label for="mdp" class="form-label fw-semibold">Mot de passe</label>
-            <input type="password" class="form-control form-control-lg" id="mdp" placeholder="••••••••">
+            <input type="password" class="form-control form-control-lg" id="mdp"
+                   name="password" placeholder="••••••••"
+                   autocomplete="current-password" required>
         </div>
-        <!-- Pas encore fonctionnel (Sprint 2) -->
-        <button type="button" class="btn btn-lincoln w-100">Se connecter</button>
+        <button type="submit" class="btn btn-lincoln w-100">Se connecter</button>
     </form>
 
     <p class="small text-muted text-center mt-4 pt-3 border-top">

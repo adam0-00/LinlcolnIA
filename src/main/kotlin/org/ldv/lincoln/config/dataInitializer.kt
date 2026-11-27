@@ -7,11 +7,19 @@ import org.ldv.lincoln.model.entity.ModeleIA
 import org.springframework.boot.CommandLineRunner
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.ldv.lincoln.model.dao.RoleDAO
+import org.ldv.lincoln.model.dao.UtilisateurDAO
+import org.ldv.lincoln.model.entity.Role
+import org.ldv.lincoln.model.entity.Utilisateur
+import org.springframework.security.crypto.password.PasswordEncoder
 
 @Configuration
 class DataInitializer(
     private val fournisseurIADAO: FournisseurIADAO,
-    private val modeleIADAO: ModeleIADAO
+    private val modeleIADAO: ModeleIADAO,
+    private val roleDAO: RoleDAO,
+    private val utilisateurDAO: UtilisateurDAO,
+    private val passwordEncoder: PasswordEncoder
 ) {
 
     @Bean
@@ -74,6 +82,36 @@ class DataInitializer(
             if (!existe) {
                 modeleIADAO.save(modele)
             }
+        }
+
+        // Les rôles
+        if (roleDAO.findAll().isEmpty()) {
+            roleDAO.save(Role(nom = "Utilisateur", nomLogique = "ROLE_USER"))
+            roleDAO.save(Role(nom = "Administrateur", nomLogique = "ROLE_ADMIN"))
+        }
+        val roleAdmin = roleDAO.findAll().first { it.nomLogique == "ROLE_ADMIN" }
+        val roleUser = roleDAO.findAll().first { it.nomLogique == "ROLE_USER" }
+
+// Les utilisateurs de test
+        if (utilisateurDAO.findAll().isEmpty()) {
+            utilisateurDAO.save(
+                Utilisateur(
+                    prenom = "Adam",
+                    nom = "Yahya",
+                    email = "admin@email.com",
+                    motDePasse = passwordEncoder.encode("admin123")!!,
+                    role = roleAdmin
+                )
+            )
+            utilisateurDAO.save(
+                Utilisateur(
+                    prenom = "Doli",
+                    nom = "Prane",
+                    email = "doli.prane@email.com",
+                    motDePasse = passwordEncoder.encode("user123")!!,
+                    role = roleUser
+                )
+            )
         }
     }
 }
